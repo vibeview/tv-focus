@@ -1,6 +1,6 @@
 {
   "name": "@vibeview/tv-focus",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Marks the element your TV web app has focused, so VibeView can record and replay by element",
   "keywords": [
     "tizen",

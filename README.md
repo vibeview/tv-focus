@@ -29,7 +29,8 @@ trackNoriginFocus(SpatialNavigation);
 ```
 
 Your norigin options and behaviour stay as they are. If you call `init()` again later,
-call `trackNoriginFocus` again after it.
+call `trackNoriginFocus` again after it. It never throws: called before `init()`, or
+with a norigin version it doesn't know, it logs a warning and focus is not marked.
 
 ### Any other focus system
 

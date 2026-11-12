@@ -43,9 +43,14 @@ export function trackNoriginFocus(service: object): void {
   // Norigin 3 keeps the adapter it focuses DOM nodes with in `layoutAdapter` (set by init()).
   const adapter = (service as { layoutAdapter?: unknown }).layoutAdapter;
   if (!isAdapter(adapter)) {
-    throw new Error(
-      '@vibeview/tv-focus: no norigin layout adapter found. Call trackNoriginFocus after SpatialNavigation.init(), with norigin-spatial-navigation 3.x.',
-    );
+    // Never throw: this runs at app start, and a testing aid must not take the app down
+    // (a norigin upgrade, or a test's norigin mock). Focus is then just not marked.
+    if (typeof console !== 'undefined') {
+      console.warn(
+        '@vibeview/tv-focus: no norigin layout adapter found, so focus is not marked. Call trackNoriginFocus after SpatialNavigation.init(), with norigin-spatial-navigation 3.x.',
+      );
+    }
+    return;
   }
   if (adapter[WRAPPED]) return;
   const focusNode = adapter.focusNode.bind(adapter);

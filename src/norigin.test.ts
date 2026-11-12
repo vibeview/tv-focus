@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { FOCUS_ATTRIBUTE, setFocused } from './index';
 import { trackNoriginFocus } from './norigin';
 
@@ -63,7 +63,12 @@ describe('trackNoriginFocus', () => {
     expect(marked()).toEqual([]);
   });
 
-  it('throws before init() (no adapter yet)', () => {
-    expect(() => trackNoriginFocus({})).toThrow(/after SpatialNavigation.init/);
+  it('warns and does nothing before init() or on an unknown norigin (never throws)', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    expect(() => trackNoriginFocus({})).not.toThrow();
+    expect(() => trackNoriginFocus({ layoutAdapter: {} })).not.toThrow();
+    expect(warn).toHaveBeenCalledTimes(2);
+    expect(String(warn.mock.calls[0][0])).toMatch(/after SpatialNavigation.init/);
+    warn.mockRestore();
   });
 });
