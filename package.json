@@ -1,0 +1,77 @@
+{
+  "name": "@vibeview/tv-focus",
+  "version": "0.1.0",
+  "description": "Marks the element your TV web app has focused, so VibeView can record and replay by element",
+  "keywords": [
+    "tizen",
+    "webos",
+    "smart-tv",
+    "spatial-navigation",
+    "norigin",
+    "focus",
+    "testing",
+    "vibeview"
+  ],
+  "license": "MIT",
+  "author": "VibeView",
+  "homepage": "https://github.com/vibeview/tv-focus#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vibeview/tv-focus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vibeview/tv-focus/issues"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./norigin": {
+      "import": {
+        "types": "./dist/norigin.d.mts",
+        "default": "./dist/norigin.mjs"
+      },
+      "require": {
+        "types": "./dist/norigin.d.ts",
+        "default": "./dist/norigin.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "jsdom": "^28.1.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "typesVersions": {
+    "*": {
+      "norigin": [
+        "./dist/norigin.d.ts"
+      ]
+    }
+  }
+}
